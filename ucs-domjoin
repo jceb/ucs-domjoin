@@ -307,6 +307,15 @@ else
 fi
 # }}}1
 
+log "Configuring lightdm greater" # {{{1
+if [ -e /etc/lightdm/lightdm.conf ]; then
+	# Add a field for a user name
+	grep -q "greeter-show-manual-login=true" /etc/lightdm/lightdm.conf || echo "greeter-show-manual-login=true" >> /etc/lightdm/lightdm.conf
+	#
+	# Optional: Disable the user selection at the login screen
+	grep -q "greeter-hide-users=true" /etc/lightdm/lightdm.conf || echo "greeter-hide-users=true" >> /etc/lightdm/lightdm.conf
+fi # }}}1
+
 log "Creating kerberos configuration" # {{{1
 cat >/etc/krb5.conf <<__EOF__
 [libdefaults]
@@ -341,20 +350,20 @@ ntpdate $ldap_master
 # sssd ist vermutlich die bessere variante
 # # Install packages
 # DEBIAN_FRONTEND=noninteractive apt-get install nss-updatedb libnss-db libpam-ccreds
-# 
+#
 # # Dump the LDAP data
 # nss_updatedb ldap
-# 
+#
 # # Call it every day
 # cat >/etc/cron.daily/upd-local-nss-db <<__EOF__
 # #!/bin/sh
 # `which nss_updatedb` ldap
 # __EOF__
 # chmod +x /etc/cron.daily/upd-local-nss-db
-# 
+#
 # # Added NOTFOUND case for ldap in nsswitch.conf
 # sed -i 's|^passwd: .*|passwd: files ldap [NOTFOUND=return] db|; s|^group: .*|group: files ldap [NOTFOUND=return] db|' /etc/nsswitch.conf
-# 
+#
 # # Skip pam_ldap if user_unknown or authinfo_unavail as well
 # sed -i 's/^\(account.*\[success=\)\(.\)\(.*pam_ldap.so\)/\1\2 user_unknown=\2 authinfo_unavail=\2 \3/' /etc/pam.d/common-account
 

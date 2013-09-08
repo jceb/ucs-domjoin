@@ -12,16 +12,16 @@ http://wiki.univention.de/index.php?title=Ubuntu.
 * Configure DNS on your client properly, e.g. point to your UCS Master as DNS
   server.  This command must print the domain name of your UCS master:
 
-	host -t SRV _domaincontroller_master._tcp
+		host -t SRV _domaincontroller_master._tcp
 
 * Download the ucs-domjoin script
 
-	wget -O ucs-domjoin https://raw.github.com/jceb/ucs-domjoin/master/ucs-domjoin
-	chmod a+x ucs-domjoin
+		wget -O ucs-domjoin https://raw.github.com/jceb/ucs-domjoin/master/ucs-domjoin
+		chmod a+x ucs-domjoin
 
 * Run the script with root privileges
 
-	sudo ./ucs-domjoin
+		sudo ./ucs-domjoin
 
 ## Features
 

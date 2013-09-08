@@ -1,9 +1,8 @@
-ucs-domjoin
-===========
+# ucs-domjoin
 
-Practical application of this description
-(http://wiki.univention.de/index.php?title=Ubuntu) for making arbitrary Linux
-systems part of a UCS domain.
+Simple script for making arbitrary Linux systems part of a UCS domain.  A lot of
+the code was taken from the manufacturer's description at
+http://wiki.univention.de/index.php?title=Ubuntu.
 
 ## Usage
 
@@ -11,18 +10,18 @@ systems part of a UCS domain.
   (http://www.univention.de/ |
   http://wiki.univention.de/index.php?title=UCS_Quickstart)
 * Configure DNS on your client properly, e.g. point to your UCS Master as DNS
-  server.  This chommand must print the domain name of your UCS master:
+  server.  This command must print the domain name of your UCS master:
 
-    host -t SRV _domaincontroller_master._tcp
+	host -t SRV _domaincontroller_master._tcp
 
 * Download the ucs-domjoin script
 
-    wget -O ucs-domjoin https://raw.github.com/jceb/ucs-domjoin/master/ucs-domjoin
-    chmod a+x ucs-domjoin
+	wget -O ucs-domjoin https://raw.github.com/jceb/ucs-domjoin/master/ucs-domjoin
+	chmod a+x ucs-domjoin
 
 * Run the script with root privileges
 
-    sudo ./ucs-domjoin
+	sudo ./ucs-domjoin
 
 ## Features
 

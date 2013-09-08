@@ -30,8 +30,6 @@
 # License with the Debian GNU/Linux or Univention distribution in file
 # /usr/share/common-licenses/AGPL-3; if not, see
 # <http://www.gnu.org/licenses/>.
-#
-# vi: ft=sh:tw=80:sw=4:ts=4:fdm=marker
 
 set -u
 set -e
@@ -86,7 +84,7 @@ findmaster () { # {{{1
 	echo "${master}"
 } # }}}1
 
-# Test dependencies {{{1
+log "Testing dependencies" # {{{1
 testcmd ldapsearch
 testcmd sssd
 testcmd dig
@@ -360,3 +358,5 @@ ntpdate $ldap_master
 # # Skip pam_ldap if user_unknown or authinfo_unavail as well
 # sed -i 's/^\(account.*\[success=\)\(.\)\(.*pam_ldap.so\)/\1\2 user_unknown=\2 authinfo_unavail=\2 \3/' /etc/pam.d/common-account
 
+
+# vi: ft=sh:tw=80:sw=4:ts=4:fdm=marker

@@ -1,8 +1,8 @@
 #!/bin/sh
-# ucs-domjoin.sh
+# ucs-domjoin
 #  Make Linux systems part of a UCS domain (inspired by http://wiki.univention.de/index.php?title=Ubuntu)
 #
-# Depends: dig, wget
+# Depends: dig, wget, sssd, lsb_release, ssh, ldap-utils, ntpdate, krb5, 
 #
 # Copyright (C) 2012,2013 Jan Christoph Ebersbach
 #

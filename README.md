@@ -32,6 +32,7 @@ http://wiki.univention.de/index.php?title=Ubuntu.
   addresses of all interfaces and operating system release details
 * Automatic configuration of Debian-based systems
 * Automatic Kerberos integration
+* Automatic lightdm configuration
 
 ## Known Issues
 

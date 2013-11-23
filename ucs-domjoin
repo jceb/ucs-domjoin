@@ -360,6 +360,7 @@ else
 fi
 # }}}1
 
+# TODO add support for mdm / LinuxMint
 log "Configuring lightdm greater." # {{{1
 if [ -e /etc/lightdm/lightdm.conf ]; then
 	# Add a field for a user name

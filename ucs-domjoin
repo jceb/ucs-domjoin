@@ -144,7 +144,7 @@ trap "rm -f '$ROOT_PASSWORD'" 0               # EXIT
 trap "rm -f '$ROOT_PASSWORD'; exit 1" 2       # INT
 trap "rm -f '$ROOT_PASSWORD'; exit 1" 1 15    # HUP TERM
 query_password "Please enter root password for system ${MASTER}:" > "${ROOT_PASSWORD}"
-sshpass -f "${ROOT_PASSWORD}" ssh "root@${MASTER}" log "SSH access is working." || error "SSH access failed."
+sshpass -f "${ROOT_PASSWORD}" ssh "root@${MASTER}" true && log "SSH access is working." || error "SSH access failed."
 # }}}1
 
 log "Preparing configuration." # {{{1
@@ -182,7 +182,7 @@ done
 
 existing_host_dn=$(sshpass -f "${ROOT_PASSWORD}" ssh "root@${ldap_master}" udm computers/computer list --filter name="${hostname}" | sed -ne 's/^DN: //p' || true)
 if [[ -n "${existing_host_dn}" ]]; then
-	case "$(query 'Host exists with DN: ${existing_host_dn}.  Delete it? [yN]' 'N')" in
+	case "$(query "Host exists with DN: ${existing_host_dn}.  Delete it? [yN]" 'N')" in
 		y|Y)
 			log 'Deleting host.'
 			existing_host_type=$(sshpass -f "${ROOT_PASSWORD}" ssh "root@${ldap_master}" univention-ldapsearch -s base -LLL -b "${existing_host_dn}" univentionObjectType | sed -ne 's/^univentionObjectType: //p')
@@ -202,7 +202,7 @@ if [ "$version_version" = 3.0 ] && [ "$version_patchlevel" -lt 2 ]; then
 		--set name="${hostname}" --set password="${password}" $mac_addresses \
 		--set description="$(lsb_release -d)"
 else
-	if lsb_release -is | grep -q 'buntu' ; then
+	if lsb_release -is | grep -q 'buntu' || [[ $(lsb_release -is) = LinuxMint ]]; then
 		type="computers/ubuntu"
 	else
 		type="computers/linux"

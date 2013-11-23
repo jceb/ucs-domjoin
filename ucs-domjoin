@@ -338,7 +338,12 @@ __EOF__
 	# }}}2
 
 	log "Creating security group configuration." # {{{2
-	echo '*;*;*;Al0000-2400;audio,cdrom,dialout,floppy,plugdev,adm,games' >>/etc/security/group.conf
+	administrator="$(query "How is the future administrator of this computer? (username|Administrator)" "Administrator")"
+	if [[ -n "${administrator}" ]]; then
+		grep -q "*;*;${administrator};Al0000-2400;sambashare,sudo,dip,lpadmin" /etc/security/group.conf || echo "*;*;${administrator};Al0000-2400;sambashare,sudo,dip,lpadmin" >>/etc/security/group.conf
+	fi
+	grep -q "*;*;%Domain Admins;Al0000-2400;sambashare,sudo,dip,lpadmin" /etc/security/group.conf || echo "*;*;%Domain Admins;Al0000-2400;sambashare,sudo,dip,lpadmin" >>/etc/security/group.conf
+	grep -q '*;*;*;Al0000-2400;audio,cdrom,dialout,floppy,plugdev,adm,games' /etc/security/group.conf || echo '*;*;*;Al0000-2400;audio,cdrom,dialout,floppy,plugdev,adm,games' >>/etc/security/group.conf
 
 	cat >>/usr/share/pam-configs/local_groups <<__EOF__
 Name: activate /etc/security/group.conf
